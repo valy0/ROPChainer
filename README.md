@@ -12,4 +12,4 @@ optional arguments:
   -t TYPE, --type TYPE  Type to search for, default=ALL (ADD SUB MOV SET XOR XCHG POP PUSH PPR DEREF INC DECR)
   -b BAD, --bad BAD     Bad characters to filter out (format: '00 0a 0n 26')
   -F, --full            Display gadgets with more instructions.
-```i
+```
