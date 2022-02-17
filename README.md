@@ -1,6 +1,11 @@
 # ROPChainer
 ROPChainer is a simple python script to parse rp gadget output files using regex for quick gadget filtering.
 
+Default usage:
+`python3 ROPChainer.py -f rp_output.txt`
+
+<br>
+
 ```text
 usage: ROPChainer.py [-h] -f FILE [-t TYPE] [-b BAD] [-F]
 
