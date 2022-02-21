@@ -1,27 +1,29 @@
 import re
 
 
-class GetGadgets:
+FILTERS = {
+    "ADD": "add \w\w\w, \w\w\w ;",
+    "SUB": "sub \w\w\w, \w\w\w ;",
+    "MOV": "mov \w\w\w, \w\w\w ;",
+    "SET": "mov \w\w\w, 0x\d+ ;",
+    "XOR": "xor \w\w\w, \w\w\w ;",
+    "XCHG": "xchg \w\w\w, \w\w\w ;",
+    "POP": "pop \w\w\w ;",
+    "PUSH": "push \w\w\w ; pop \w\w\w ;",
+    "PPR": "pop \w\w\w ; pop \w\w\w ;",
+    "DEREF": "mov (\w\w\w, dword \[\w\w\w\]|dword \[\w\w\w\], \w\w\w) ;",
+    "INC": "inc \w\w\w",
+    "DECR": "dec \w\w\w"
+}
+
+class GetGadgets(object):
     """
     Simple Class that will use regex to find matching gadgets
     """
-    filters = {
-        "ADD": "add \w\w\w, \w\w\w ;",
-        "SUB": "sub \w\w\w, \w\w\w ;",
-        "MOV": "mov \w\w\w, \w\w\w ;",
-        "SET": "mov \w\w\w, 0x\d+ ;",
-        "XOR": "xor \w\w\w, \w\w\w ;",
-        "XCHG": "xchg \w\w\w, \w\w\w ;",
-        "POP": "pop \w\w\w ;",
-        "PUSH": "push \w\w\w ; pop \w\w\w ;",
-        "PPR": "pop \w\w\w ; pop \w\w\w ;",
-        "DEREF": "mov (\w\w\w, dword \[\w\w\w\]|dword \[\w\w\w\], \w\w\w) ;",
-        "INC": "inc \w\w\w",
-        "DECR": "dec \w\w\w"
-    }
 
     def __init__(self, file, fulloutput):
         self.file = file
+        self.filters = FILTERS.copy()
         if fulloutput:
             for k in self.filters.keys():
                 self.filters[k] = ".*: .* " + self.filters[k] + " .* ; ret"
