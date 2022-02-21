@@ -2,6 +2,7 @@ import argparse
 import os
 import sys
 from GadgetFinder import GetGadgets
+from print_utils import pretty_print_output
 
 
 def type_file(filename):
@@ -48,15 +49,18 @@ def run(filename, type, fulloutput, badChars):
     """
     getGadgets = GetGadgets(filename, fulloutput)
     gadgets = getGadgets.find(type=type, bad=badChars.strip().split(" "))
-    print("")
+    output = {}
+
     for k in gadgets.keys():
+        output[k] = []
         singleGadgetList = []
-        print(f"{k}")
-        for gadget in gadgets[k]:
+
+        for i, gadget in enumerate(gadgets[k]):
             if gadget.split(':')[1] not in singleGadgetList:
-                print(f"{gadget}", end='')
+                output[k].append(gadget)
                 singleGadgetList.append(gadget.split(':')[1])
-        print("")
+
+    pretty_print_output(output)
 
 
 if __name__ == "__main__":
